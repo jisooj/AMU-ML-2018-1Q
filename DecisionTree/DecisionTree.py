@@ -77,6 +77,7 @@ class DecisionTree:
                maxScore = score
                bestFeature = feature
          noSet, yesSet = bestFeature.split(dataset)
+         # TODO: test remove funciton for custom class
          features.remove(bestFeature)
          left = self.decisionTreeTrainHelper(noSet, features)
          right = self.decisionTreeTrainHelper(yesSet, features)

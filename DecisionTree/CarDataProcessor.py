@@ -41,9 +41,9 @@ def main():
    processor = CarDataProcessor()
    processor.processFile()
    features = [] # need to put in functions that will be used in training
-   tree = DecisionTree()
+   tree = DecisionTree(processor.dataset, features)
    # Don't train with 100% of dataset. Try maybe 80% and use remainder as testing units
-   tree.decisionTreeTrain(processor.dataset, features)
+   tree.decisionTreeTrain()
 
    # Then do some prediction with unseen car info. 
    # Fill args with appropriate types
