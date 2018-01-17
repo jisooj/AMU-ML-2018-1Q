@@ -19,9 +19,9 @@ class DecisionTree:
          return self.left == None and self.right == None
 
    def __init_(self, dataset, features):
+      self.root = None
       self.dataset = dataset
       self.features = features
-      self.root = None
 
    # Returns a tuple (guess, ambiguity) where:
    # - guess: most frequent label found in the given datset
@@ -36,10 +36,12 @@ class DecisionTree:
          guess = 1
       return (guess, ambiguity)
 
+   # Returns majority count for negative/positive examples
    def getMajorityVote(self, dataset):
       negativeCount, positiveCount = self.splitExamples(dataset)
       return max(positiveCount, negativeCount)
 
+   # Returns count for both negative/positive examples
    def splitExamples(self, dataset):
       negativeCount = 0
       positiveCount = 0
@@ -50,7 +52,15 @@ class DecisionTree:
             negativeCount += 1
       return (negativeCount, positiveCount)
 
-   def decisionTreeTrain(self, dataset, features):
+   # Core training algorithm that build up decision tree.
+   # Params:
+   # - dataset: list of CarInfo with mix of positive/negative examples
+   # - features: array of features, each of which is a function that 
+   # decides how to split the given dataset
+   def decisionTreeTrain(self):
+      self.root = self.decisionTreeTrain(self.dataset, self.features)
+
+   def decisionTreeTrainHelper(self, dataset, features):
       # most frequent answer in dataset
       guess, ambiguity = self.getDatasetInfo(dataset)
       if (not ambiguity) or (len(features) == 0):
@@ -68,12 +78,14 @@ class DecisionTree:
                bestFeature = feature
          noSet, yesSet = bestFeature.split(dataset)
          features.remove(bestFeature)
-         left = self.decisionTreeTrain(noSet, features)
-         right = self.decisionTreeTrain(yesSet, features)
+         left = self.decisionTreeTrainHelper(noSet, features)
+         right = self.decisionTreeTrainHelper(yesSet, features)
          return Node(dataset, left, right)
 
+   # Predicts whether a car has an efficient mpg based on the given carInfo
+   # Returns 1 if efficient and returns 0 otherwise 
    def decisionTreeTest(self, carInfo):
-      return self.decisionTreeTestHelper(self.root, carInfo)
+      return self.decisionTreeTest(self.root, carInfo)
 
    def decisionTreeTestHelper(self, root, carInfo):
       if root.isLeaf():

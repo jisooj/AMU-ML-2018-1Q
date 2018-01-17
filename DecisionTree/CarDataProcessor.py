@@ -1,9 +1,8 @@
 """" 
-Car MPG program [our goal: if we input random attributes 2-8 (except for MPG), it would give us MPG 
+Car Efficiency Predictor 
 
-1. Create labels -> group rows by mpg, each of which will be casted to int. aka create map<car_hash, mpg>
-2. get data ready to construct decision tree
-3. splitter to make labels???
+From a car info that contains attributes 2-8 (except for MPG) we want to predict 
+whether the car has an efficient MPG. For now, efficient MPG is MPG > avg(MPG)
 
 """
 
@@ -11,7 +10,6 @@ import csv
 from CarInfo import CarInfo, Feature
 
 class CarDataProcessor:
-
    def __init__(self):
       self.dataset = []
 
@@ -37,3 +35,20 @@ class CarDataProcessor:
          for info in dataset:
             if info.mpg > avgMPG
                info.label = 1
+
+
+def main():
+   processor = CarDataProcessor()
+   processor.processFile()
+   features = [] # need to put in functions that will be used in training
+   tree = DecisionTree()
+   # Don't train with 100% of dataset. Try maybe 80% and use remainder as testing units
+   tree.decisionTreeTrain(processor.dataset, features)
+
+   # Then do some prediction with unseen car info. 
+   # Fill args with appropriate types
+   # carInfo = CarInfo("arg1", "arg2", "arg3", "arg4", "arg5", "arg6", "arg7")
+   # tree.decisionTreeTest(carInfo)
+
+if __name__ == "__main__":
+   main()

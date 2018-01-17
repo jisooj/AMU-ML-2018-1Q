@@ -1,7 +1,5 @@
 # CarInfo class which represents single car info with 7 diff attributes
-
 class CarInfo:
-   
    # Car info input file format:
    # 1. mpg:           continuous  <-- this one is going to be used as a label
    # 2. cylinders:     multi-valued discrete
@@ -26,7 +24,6 @@ class CarInfo:
       self.label = 0
 
 class Feature:
-
    # feature: function that takes car infos and allocates no/yes set
    def __init__(self, feature):
       self.feature = feature
@@ -47,6 +44,3 @@ class Feature:
    # returns 1 otherwise
    def getFeatureValue(self, carInfo):
       return self.feature(carInfo)
-
-if __name__ == "__main__":
-   f = lambda x: if 
