@@ -58,7 +58,7 @@ class DecisionTree:
    # - features: array of features, each of which is a function that 
    # decides how to split the given dataset
    def decisionTreeTrain(self):
-      self.root = self.decisionTreeTrain(self.dataset, self.features)
+      self.root = self.decisionTreeTrainHelper(self.dataset, self.features)
 
    def decisionTreeTrainHelper(self, dataset, features):
       # most frequent answer in dataset
