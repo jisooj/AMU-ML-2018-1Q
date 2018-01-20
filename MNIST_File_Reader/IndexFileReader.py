@@ -19,23 +19,23 @@ class IndexFileReader:
          if dataSize == 0:
             exit("The given file is using an unsupported data type")
          
-         dimensions = []
+         self.dimensions = []
          for i in range(0, numDimensions):
             dim = self.byteArrayToInt(f.read(4))
-            dimensions.append(dim)
+            self.dimensions.append(dim)
 
-         numItems, singleItemSize = self.getItemMetaData(dimensions)
+         numItems, singleItemSize = self.getItemMetaData(self.dimensions)
 
-         dataset = []
+         self.dataset = []
          item = []
          for i in range(0, numItems * singleItemSize):
             item.append(self.byteArrayToInt(f.read(1)))
             if (i + 1) % singleItemSize == 0:
-               dataset.append(item)
+               self.dataset.append(item)
                item = []
 
          print("singleItemSize = " + str(singleItemSize))
-         print("dataset length = " + str(len(dataset)))
+         print("dataset length = " + str(len(self.dataset)))
          print("item length = " + str(len(item)))
          print("DONE")
 
@@ -92,8 +92,10 @@ class IndexFileReader:
 
 
 def main():
-   reader = IndexFileReader("t10k-images.idx3-ubyte")
+   reader = IndexFileReader("t10k-labels.idx1-ubyte")
    reader.readFile()
+   print(reader.dataset)
+   print(reader.dimensions)
 
 if __name__ == "__main__":
    main()
