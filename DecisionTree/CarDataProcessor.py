@@ -8,6 +8,7 @@ whether the car has an efficient MPG. For now, efficient MPG is MPG > avg(MPG)
 
 import csv
 from CarInfo import CarInfo, Feature
+from DecisionTree import DecisionTree
 
 class CarDataProcessor:
    def __init__(self):
@@ -22,18 +23,26 @@ class CarDataProcessor:
          lineCount = 0
          avgMPG = 0
          for row in reader:
-            # def __init__(self, cylinders, displacement, horsepower, weight, acceleration, modelYear, origin):
+            # def __init__(self, mpg, cylinders, displacement, horsepower, weight, acceleration, modelYear, origin):
             col = row[0].split()
             avgMPG += int(float(col[0]))
-            info = CarInfo(col[1], col[2], col[3], col[4], col[5], col[6], col[7])
+            info = CarInfo(\
+               int(float(col[0])), \
+               int(col[1]), \
+               float(col[2]), \
+               float(col[3]), \
+               int(float(col[4])), \
+               float(col[5]), \
+               int(col[6]), 
+               int(col[7]))
             lineCount += 1
             self.dataset.append(info)
 
          # Find average MPG used to label data
          avgMPG = avgMPG / lineCount
          # label training data 
-         for info in dataset:
-            if info.mpg > avgMPG
+         for info in self.dataset:
+            if info.mpg > avgMPG:
                info.label = 1
 
 
@@ -47,8 +56,8 @@ def main():
 
    # Then do some prediction with unseen car info. 
    # Fill args with appropriate types
-   # carInfo = CarInfo("arg1", "arg2", "arg3", "arg4", "arg5", "arg6", "arg7")
-   # tree.decisionTreeTest(carInfo)
+   carInfo = CarInfo("arg0", "arg1", "arg2", "arg3", "arg4", "arg5", "arg6", "arg7")
+   tree.decisionTreeTest(carInfo)
 
 if __name__ == "__main__":
    main()

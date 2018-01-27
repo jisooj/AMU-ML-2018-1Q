@@ -1,7 +1,7 @@
 # CarInfo class which represents single car info with 7 diff attributes
 class CarInfo:
    # Car info input file format:
-   # 1. mpg:           continuous  <-- this one is going to be used as a label
+   # 1. mpg:           continuous  <-- this one is going to be used to determine label
    # 2. cylinders:     multi-valued discrete
    # 3. displacement:  continuous
    # 4. horsepower:    continuous
@@ -13,7 +13,8 @@ class CarInfo:
    # label: Does this car have an efficient mpg or not
    # Let's consider efficient (label = 1) if mpg is higher than average mpg
    # and inefficient (label = 0) otherwise
-   def __init__(self, cylinders, displacement, horsepower, weight, acceleration, modelYear, origin):
+   def __init__(self, mpg, cylinders, displacement, horsepower, weight, acceleration, modelYear, origin):
+      self.mpg = mpg
       self.cylinders = cylinders
       self.displacement = displacement
       self.horsepower = horsepower
@@ -22,6 +23,9 @@ class CarInfo:
       self.modelYear = modelYear
       self.origin = origin
       self.label = 0
+
+   def toString(self):
+      return f"[{self.mpg}, {self.cylinders}, {self.displacement}, {self.horsepower}, {self.weight}, {self.acceleration}, {self.modelYear}, {self.origin}, {self.label}]"
 
 class Feature:
    # feature: function that takes car infos and allocates no/yes set
