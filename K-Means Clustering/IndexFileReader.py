@@ -91,11 +91,11 @@ class IndexFileReader:
       return (numItems, singleItemSize)
 
 
-def main():
-   reader = IndexFileReader("t10k-labels.idx1-ubyte")
-   reader.readFile()
-   print(reader.dataset)
-   print(reader.dimensions)
+# def main():
+#    reader = IndexFileReader("t10k-images.idx3-ubyte")
+#    reader.readFile()
+#    print(reader.dataset[0])
+#    print(reader.dimensions)
 
-if __name__ == "__main__":
-   main()
+# if __name__ == "__main__":
+#    main()

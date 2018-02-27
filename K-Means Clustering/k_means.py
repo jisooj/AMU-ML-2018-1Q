@@ -6,8 +6,9 @@ class KMeansClusterer:
    IMG_HEIGHT = 28
    IMG_WIDTH = 28
 
-   def __init__(self, dataset, k):
+   def __init__(self, dataset, labels, k):
       self.dataset = dataset
+      self.labels = labels
       self.k = k
 
    # 1. Initialize k starting centers by randomly 
@@ -74,13 +75,13 @@ class KMeansClusterer:
    # function, which lives inside the cluster function.
    # def loop():
    def cluster(self):
-      currentCenterPoints = self.initialize()
-      epsilon = 0.000001
-      distDiff = epsilon * 10
-      while (distDiff > epsilon):
+      currentCenterPoints = []
+      newCenterPoints = self.initialize()
+      while (currentCenterPoints != newCenterPoints):
+         currentCenterPoints = newCenterPoints
          groups = self.assign(self.dataset, currentCenterPoints)
          newCenterPoints = self.update(groups)
-         distDiff = self.dist(self.currentCenterPoints, newCenterPoints)
-         currentCenterPoints = newCenterPoints
-
       return currentCenterPoints
+
+
+   # use labels to determine which label belongs to which group
